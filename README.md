@@ -133,6 +133,10 @@ The architecture has been validated on a real Eltako Series 14 installation with
 
 See [`SOURCES.md`](SOURCES.md) for explicit attribution and [`docs/related-projects.md`](docs/related-projects.md) for the architectural comparison. This project is complementary to, not a replacement for, the established Eltako and EnOcean libraries/integrations.
 
+## Support the project
+
+If this project helps you, you can [support further hardware testing via PayPal](https://paypal.me/BenjaminZapf492). Contributions are used to purchase additional Eltako and EnOcean components for reproducible tests and documentation.
+
 ## License
 
 MIT for the original material in this repository. Dependencies and linked projects retain their own licenses. No third-party source code is bundled here.

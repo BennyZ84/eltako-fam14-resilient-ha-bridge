@@ -48,6 +48,10 @@ Ausführlich mit Community- und Herstellerquellen: [`SOURCES.md`](SOURCES.md). E
 
 Unser Schwerpunkt ist die **Kombination aus kabelgebundenem Primärweg und unabhängigem Funk-Failover** mit echter Bestätigungslogik.
 
+## Projekt unterstützen
+
+Wenn dir das Projekt hilft, kannst du [weitere Hardwaretests über PayPal unterstützen](https://paypal.me/BenjaminZapf492). Die Unterstützung wird für zusätzliche Eltako- und EnOcean-Komponenten verwendet, um Tests und Dokumentation zu erweitern.
+
 ## Lizenz
 
 MIT für die hier neu erstellten Inhalte. Verlinkte Abhängigkeiten und Projekte behalten ihre eigenen Lizenzen.
