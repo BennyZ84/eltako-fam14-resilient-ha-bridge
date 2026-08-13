@@ -1,0 +1,87 @@
+# Home Assistant package example.
+# This is intentionally small and uses documentation-only sample entities/topics.
+# Adapt names, commands, MQTT topics and pending sensors to your own bridge.
+
+script:
+  fam14_usb300_backup_dispatch_example:
+    alias: FAM14 USB300 Backup - Example Dispatcher
+    mode: queued
+    max: 20
+    fields:
+      command:
+        description: Command name also used on fam14/cmd
+        example: hall_off
+    sequence:
+      - choose:
+          - conditions: "{{ command in ['hall_on', 'hall_off'] }}"
+            sequence:
+              - action: mqtt.publish
+                data:
+                  topic: enoceanmqtt/usb300_backup_hall/req/COM
+                  payload: "1"
+              - action: mqtt.publish
+                data:
+                  topic: enoceanmqtt/usb300_backup_hall/req/SW
+                  payload: "{{ '1' if command == 'hall_on' else '0' }}"
+              - action: mqtt.publish
+                data:
+                  topic: enoceanmqtt/usb300_backup_hall/req/send
+                  payload: clear
+          - conditions: "{{ command in ['cover_office_open', 'cover_office_close', 'cover_office_stop'] }}"
+            sequence:
+              - variables:
+                  raw: >-
+                    {% if command == 'cover_office_open' %}00:F5:01:0A:80
+                    {% elif command == 'cover_office_close' %}00:F5:02:0A:80
+                    {% else %}00:00:00:0A:80{% endif %}
+              - action: mqtt.publish
+                data:
+                  topic: enoceanmqtt/usb300_backup_cover_office/req/raw_data
+                  payload: "{{ raw }}"
+              - action: mqtt.publish
+                data:
+                  topic: enoceanmqtt/usb300_backup_cover_office/req/send
+                  payload: raw_data
+
+automation:
+  - alias: FAM14 USB300 Example Failover
+    id: fam14_usb300_example_failover
+    mode: parallel
+    max: 10
+    triggers:
+      - trigger: mqtt
+        topic: fam14/cmd
+    variables:
+      command: "{{ trigger.payload }}"
+      supported: "{{ command in ['hall_on', 'hall_off'] }}"
+      pending_entity: sensor.fam14_hall_pending
+      pending_before: "{{ states[pending_entity].last_changed.isoformat() if pending_entity in states else '' }}"
+    conditions:
+      - condition: template
+        value_template: "{{ supported }}"
+    actions:
+      - choose:
+          - conditions:
+              - condition: or
+                conditions:
+                  - condition: not
+                    conditions:
+                      - condition: state
+                        entity_id: sensor.fam14_bridge_status
+                        state: online
+                  - condition: state
+                    entity_id: binary_sensor.fam14_bridge_heartbeat
+                    state: "off"
+            sequence:
+              - action: script.fam14_usb300_backup_dispatch_example
+                data:
+                  command: "{{ command }}"
+        default:
+          - delay: "00:00:08"
+          - condition: template
+            value_template: >-
+              {{ states(pending_entity) != 'idle'
+                 or (pending_entity in states and states[pending_entity].last_changed.isoformat() == pending_before) }}
+          - action: script.fam14_usb300_backup_dispatch_example
+            data:
+              command: "{{ command }}"

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+secrets.yaml
+*.private.yaml
+*.private.yml
+*.key
+*.pem
+*.log
+.DS_Store

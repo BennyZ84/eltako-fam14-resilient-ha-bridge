@@ -1,0 +1,35 @@
+[usb300_backup_hall]
+address = 0xFFFFFFFF
+rorg = 0xA5
+func = 0x38
+type = 0x08
+sender = 0xFFAABB81
+default_data = 0x01000008
+ignore = 1
+
+[usb300_backup_terrace_socket]
+address = 0xFFFFFFFF
+rorg = 0xA5
+func = 0x38
+type = 0x08
+sender = 0xFFAABB9A
+default_data = 0x01000008
+ignore = 1
+
+[usb300_backup_cover_office]
+address = 0xFFFFFFFF
+rorg = 0xA5
+func = 0x3F
+type = 0x7F
+sender = 0xFFAABBA1
+ignore = 1
+# move_prefix = 00:F5
+
+[usb300_backup_cover_bedroom]
+address = 0xFFFFFFFF
+rorg = 0xA5
+func = 0x3F
+type = 0x7F
+sender = 0xFFAABBA2
+ignore = 1
+# move_prefix = 00:F7

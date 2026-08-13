@@ -1,0 +1,22 @@
+# Example outbound-only USB300 entries.
+# Replace sender IDs with addresses that are actually learned by your actuators
+# and are inside your USB300 Base-ID range.
+
+[usb300_backup_hall]
+address = 0xFFFFFFFF
+rorg = 0xA5
+func = 0x38
+type = 0x08
+sender = 0xFFAABB81
+default_data = 0x01000008
+ignore = 1
+
+[usb300_backup_cover_office]
+address = 0xFFFFFFFF
+rorg = 0xA5
+func = 0x3F
+type = 0x7F
+sender = 0xFFAABBA1
+ignore = 1
+
+# Set cover raw_data dynamically over MQTT before req/send=raw_data.

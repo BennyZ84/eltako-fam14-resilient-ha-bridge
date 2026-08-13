@@ -1,0 +1,19 @@
+# Documentation example only. Adapt to your bridge implementation.
+network:
+  esp32_host: "192.0.2.20"
+  esp32_port: 6638
+
+mqtt:
+  host: "mqtt.example.invalid"
+  port: 1883
+  command_topic: "fam14/cmd"
+  status_topic: "fam14/bridge/status"
+  heartbeat_topic: "fam14/bridge/heartbeat"
+
+failover:
+  timeout_seconds: 8
+
+climate:
+  # Keep disabled until room/F4HK mappings and H/K learning are verified.
+  ftr_forward_enabled_at_start: false
+  hk_control_enabled_at_start: false

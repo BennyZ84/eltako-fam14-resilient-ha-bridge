@@ -1,0 +1,5 @@
+kind,name,sender_suffix,cover_prefix
+switch,hall,81,
+switch,terrace_socket,9A,
+cover,office,A1,00:F5
+cover,bedroom,A2,00:F7
